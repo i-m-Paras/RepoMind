@@ -65,6 +65,11 @@ Static/serverless hosts like Netlify or Vercel can't run it. Render's **free web
 `Dockerfile` here (UI + API in one image) with no credit card, and fits easily in its 512 MB (RepoMind uses
 about 200 MB).
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/i-m-Paras/RepoMind)
+
+The button uses `render.yaml`: sign in, paste your `GEMINI_API_KEY`, click **Deploy Blueprint**. Or set it up
+by hand:
+
 1. Push this repo to GitHub (or fork https://github.com/i-m-Paras/RepoMind).
 2. On https://dashboard.render.com → **New → Web Service** → connect GitHub → pick the repo.
 3. Settings:

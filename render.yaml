@@ -1,0 +1,14 @@
+# Render Blueprint: "Deploy to Render" (see README) creates this free web service from the Dockerfile.
+services:
+  - type: web
+    name: repomind
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: GEMINI_API_KEY      # the key free-tier visitors share; Render asks for it on deploy
+        sync: false
+      - key: GEMINI_RPM          # stay under the Gemini free tier's requests/minute
+        value: "10"
+      - key: FREE_CHAT_LIMIT     # free messages per visitor per day
+        value: "2"
