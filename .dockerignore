@@ -1,0 +1,9 @@
+.env
+env/
+.venv/
+**/__pycache__/
+**/.repomind/
+workspaces/
+web/node_modules/
+web/dist/
+*.egg-info/

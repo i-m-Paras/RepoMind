@@ -1,0 +1,44 @@
+embeddings:
+ provider: gemini
+ model: gemini-embedding-001   # override with GEMINI_EMBEDDING_MODEL in .env
+ dims: 768                      # Gemini truncates to this size; Redis cache index uses it too
+
+semantic_cache:
+ enabled: true                  # needs Redis Stack on redis_url; auto-disables if unreachable
+ redis_url: redis://localhost:6379
+ threshold: 0.85
+ ttl: 86400
+
+tasks:
+ db_path: .repomind/tasks.db
+
+llm:
+ provider: gemini
+ model: gemini-3.5-flash-lite   # override with GEMINI_MODEL in .env
+ judge_model: gemini-3.5-flash-lite  # model used only for LLM-as-judge
+ requests_per_minute: 0         # client-side cap; GEMINI_RPM in .env overrides (~10 on free tier)
+
+skills:
+ skills_dir: .repomind/skills
+
+memory:
+ db_path: .repomind/memory/memory.db
+ summarize_at_tokens: 4000
+ keep_last_messages: 20
+
+chromadb:
+ persist_dir: .repomind/chromadb/
+ collection_name: codebase
+
+rag:
+ mode: hybrid             # semantic (dense only) | hybrid (dense + BM25, fused with RRF)
+ hybrid:
+   dense_weight: 0.5      # RRF weight of the embedding (meaning) ranking
+   sparse_weight: 0.5     # RRF weight of the BM25 (exact words / identifiers) ranking
+   rrf_k: 60              # standard RRF constant; higher = flatter fusion
+
+vector_store:
+ provider: chroma         # chroma (local, hybrid via in-memory BM25) | qdrant (needs QDRANT_URL; hybrid via FastEmbed BM25)
+
+qdrant:
+ collection_name: repomind
